@@ -1,34 +1,52 @@
 "use client";
 
-
-import { useSearchParams } from "next/navigation";
-import { Box, Grid, Typography, Card, CardContent } from "@mui/material";
+import { useCheckedUsers } from "@/hook/useCheckedUsers";
 import { useUsers } from "@/hook/useUsers";
 
+import { Box, Typography, Card, CardContent, Link } from "@mui/material";
+
 export default function ContentPage() {
-  const searchParams = useSearchParams();
-  const userId = searchParams.get("id");
   const { users } = useUsers();
-  const selectedUser = users.find((user) => user.id.toString() === userId);
+  const { checkedUsers } = useCheckedUsers();
+
+
+  const selectedUsers = users.filter((user) => checkedUsers.includes(user.id));
 
   return (
     <Box p={4}>
-      <Typography variant="h4">صفحه محتوا (Content)</Typography>
-      <Grid container spacing={2} columns={4} mt={2}>
-        {selectedUser ? (
-          <Grid item xs={4}>
-            <Card>
+      <div className="flex justify-between">
+        <Typography variant="h4">Content</Typography>
+        <Link href="/" color="primary">
+          Back To Home
+        </Link>
+      </div>
+
+      <Box display="grid" gridTemplateColumns="repeat(4, 1fr)" mt={2}>
+        {selectedUsers.length > 0 ? (
+          selectedUsers.map((user) => (
+            <Card
+              key={user.id}
+              sx={{
+                width: 150,
+                height: 150,
+                bgcolor: "primary.main",
+                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <CardContent>
                 <Typography variant="h6">
-                  {selectedUser.name} {selectedUser.family}
+                  {user.name} {user.family}
                 </Typography>
               </CardContent>
             </Card>
-          </Grid>
+          ))
         ) : (
-          <Typography>کاربری انتخاب نشده است.</Typography>
+          <Typography>هیچ کاربری انتخاب نشده است.</Typography>
         )}
-      </Grid>
+      </Box>
     </Box>
   );
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Box } from "@mui/material";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
+import { CheckedUsersProvider } from "@/context/CheckedUsersContext";
 
 
 export const metadata: Metadata = {
@@ -19,15 +20,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Box display="flex" flexDirection="column" height="100vh">
-          <Box display="flex" flex="1">
-            <Sidebar />
-            <Box component="main" flex="1" p={2}>
-              {children}
+      
+        <CheckedUsersProvider>
+          <Box display="flex" flexDirection="column" height="100vh">
+            <Box display="flex" flex="1" flexDirection="row-reverse">
+              <Box width={240} flexShrink={0}>
+                <Sidebar />
+              </Box>
+              <Box component="main" flex="1" p={2} overflow="hidden">
+                {children}
+              </Box>
             </Box>
+            <Footer />
           </Box>
-          <Footer />
-        </Box>
+        </CheckedUsersProvider>
       </body>
     </html>
   );
