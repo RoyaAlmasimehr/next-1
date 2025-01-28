@@ -1,10 +1,10 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 
 interface CheckedUsersContextType {
-  checkedUsers: number[]; 
+  checkedUsers: number[];
   toggleUser: (id: number) => void; 
 }
 
@@ -19,8 +19,7 @@ export function CheckedUsersProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
-
+  const [checkedUsers, setCheckedUsers] = useState<number[]>([]); // کاربران 
 
   const toggleUser = (id: number) => {
     setCheckedUsers((prev) =>
@@ -34,3 +33,4 @@ export function CheckedUsersProvider({
     </CheckedUsersContext.Provider>
   );
 }
+

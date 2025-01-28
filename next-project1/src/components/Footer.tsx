@@ -1,11 +1,24 @@
-import { Box, Typography } from "@mui/material";
+"use client";
 
-const Footer = () => {
+import { Box, Typography } from "@mui/material";
+import Link from "next/link"; 
+
+export default function Footer() {
   return (
-    <Box component="footer" textAlign="center" p={2} bgcolor="lightgray">
-      <Typography variant="body2">© 2025 - My Task Project</Typography>
+    <Box
+      component="footer"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      p={2}
+      bgcolor="primary.main"
+      color="white"
+    >
+      <Typography variant="body2" mr={2}>
+        <Link href="/users" className="font-bold cursor-pointer text-xl ">
+    لینک لیست کاربران
+        </Link>
+      </Typography>
     </Box>
   );
-};
-
-export default Footer;
+}

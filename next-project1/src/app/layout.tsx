@@ -5,7 +5,8 @@ import { Box } from "@mui/material";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { CheckedUsersProvider } from "@/context/CheckedUsersContext";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
+import { AppProviders } from "@/components/AppProviders";
 
 
 export const metadata: Metadata = {
@@ -21,7 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryClientProvider client={queryClient}>
+        {/* <QueryClientProvider client={queryClient}> */}
+        <AppProviders>
           <CheckedUsersProvider>
             <Box display="flex" flexDirection="column" height="100vh">
               <Box display="flex" flex="1" flexDirection="row-reverse">
@@ -35,7 +37,8 @@ export default function RootLayout({
               <Footer />
             </Box>
           </CheckedUsersProvider>
-        </QueryClientProvider>
+        </AppProviders>
+        {/* </QueryClientProvider> */}
       </body>
     </html>
   );

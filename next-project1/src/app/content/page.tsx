@@ -14,7 +14,7 @@ export default function ContentPage() {
 
   return (
     <Box p={4}>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center py-4">
         <Typography variant="h4">Content</Typography>
         <Link href="/" color="primary">
           Back To Home
@@ -26,15 +26,7 @@ export default function ContentPage() {
           selectedUsers.map((user) => (
             <Card
               key={user.id}
-              sx={{
-                width: 150,
-                height: 150,
-                bgcolor: "primary.main",
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+             className="bg-blue-300 my-4 w-[150px] h-[150px] flex items-center justify-center"
             >
               <CardContent>
                 <Typography variant="h6">
