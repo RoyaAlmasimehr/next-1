@@ -1,5 +1,6 @@
 "use client";
 
+import { useUsers } from "@/hook/useUsers";
 import {
   Box,
   Drawer,
@@ -7,23 +8,28 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Checkbox,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
+
+    const{users}=useUsers();
+    const router=useRouter()
   return (
     <Drawer anchor="right" variant="permanent">
-      <Box width={240} role="presentation">
+      <Box width={240}>
         <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="Settings" />
-            </ListItemButton>
-          </ListItem>
+          {users.map((user) => (
+            <ListItem key={user.id} disablePadding>
+              <ListItemButton
+                onClick={() => router.push(`/content?id=${user.id}`)}
+              >
+                <Checkbox />
+                <ListItemText primary={`${user.name} ${user.family}`} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Box>
     </Drawer>
