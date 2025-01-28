@@ -1,24 +1,14 @@
-import { useState, useEffect } from "react";
+"use client"
 
-interface User {
-  id: number;
-  name: string;
-  family: string;
-}
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchUsers } from "@/api/users";
+
 
 export function useUsers() {
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    setUsers(storedUsers);
-  }, []);
-
-  const addUser = (user: User) => {
-    const updatedUsers = [...users, user];
-    setUsers(updatedUsers);
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-  };
-
-  return { users, addUser };
+  return useQuery({
+    queryKey: ["users"], 
+    queryFn: fetchUsers, 
+    staleTime: 5 * 60 * 1000, 
+  });
 }
